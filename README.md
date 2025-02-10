@@ -37,3 +37,29 @@ Create a new migration in the REPL:
 ```clojure
 (create-migration "endorse")
 ```
+
+Create a table in the `resources/migrations/*.up.sql` file:
+
+```sql
+create table endorsement (
+    id integer primary key auto_increment,
+    name varchar(30),
+    message varchar(200),
+    timestamp timestamp default current_timestamp
+);
+```
+
+Drop the table in the `resources/migrations/*.down.sql` file:
+
+```sql
+drop table endorsement;
+```
+
+Run the migration in the REPL, and restart the application:
+
+```clojure
+(migrate)
+(restart)
+```
+
+TODO: Querying the Database

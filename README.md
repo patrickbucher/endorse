@@ -62,4 +62,33 @@ Run the migration in the REPL, and restart the application:
 (restart)
 ```
 
-TODO: Querying the Database
+Create queries in `resources/sql/queries.sql`:
+
+```sql
+-- :name save-endorsement! :! :n
+-- :doc creates a new endorsement using the name and message keys
+insert into endorsement(name, message)
+values (:name, :message);
+
+-- :name get-endorsements :? :*
+-- :doc selects all available endorsements
+select * from endorsement;
+```
+
+The HugSQL library automatically generates functions for those
+queries, for which the metadata above each query is used:
+
+- `:name` is how to name the function
+- `:!` indicates that the query as destructive (it changes state)
+- `:n` indicates that the number of rows is returned
+- `:?` indicates a select operation
+- `:*` indicates that multiple rows are returned
+
+Switch to the `endorse.db.core` namespace, connect to the database,
+and execute queries:
+
+```clojure
+(in-ns 'endorse.db.core)
+(conman/bind-connection *db* "sql/queries.sql")
+(get-messages) ; ()
+```

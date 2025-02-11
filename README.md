@@ -90,5 +90,8 @@ and execute queries:
 ```clojure
 (in-ns 'endorse.db.core)
 (conman/bind-connection *db* "sql/queries.sql")
-(get-messages) ; ()
+(save-endorsement! {:name "Joe" :message "Nice guy."}) ; 1
+(get-endorsements) ; [{:id 1, :name "Joe", :message "Nice guy.", :timestamp … }]
 ```
+
+TODO: creating tests

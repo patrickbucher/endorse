@@ -94,4 +94,39 @@ and execute queries:
 (get-endorsements) ; [{:id 1, :name "Joe", :message "Nice guy.", :timestamp … }]
 ```
 
-TODO: creating tests
+### Testing
+
+Run the test cases (`test/clj/endorse/db/core_test.clj`):
+
+```sh
+lein test
+```
+
+Automatically run the tests upon changes:
+
+```sh
+lein test-refresh
+```
+
+### Routing
+
+Define routes (`src/clj/endorse/routes/home.clj`), e.g.:
+
+```clojure
+(defn home-page [request]
+  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+```
+
+A map is passed to the template (`endorse/resources/html/home.html`),
+whose keys (here: `:docs`) can be used to render the page:
+
+```html
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+  {{docs|markdown}}
+  </div>
+{% endblock %}
+```
+
+TODO: Validating Input

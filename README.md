@@ -130,3 +130,10 @@ whose keys (here: `:docs`) can be used to render the page:
 ```
 
 TODO: Validating Input
+
+## Deployment
+
+```sh
+$ lein uberjar
+$ DATABASE_URL="jdbc:h2:./endorse_dev.db" java -jar target/uberjar/endorse.jar
+```
